@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - checkout: self
+      fetchDepth: 0
+
+    - task: gittools.gitversion.setup@0
+      displayName: Install GitVersion
+      inputs:
+        versionSpec: '5.x'
+
+    - task: gittools.gitversion.execute@0
+      displayName: Determine Version
+
+    - script: |
+        echo "FullSemVer: $(GitVersion.FullSemVer)"
+        echo "AssemblySemVer: $(GitVersion.AssemblySemVer)"
+      displayName: Show Version Info
