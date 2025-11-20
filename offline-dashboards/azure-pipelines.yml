@@ -29,9 +29,15 @@ stages:
     steps:
 
     # Determine module verion
-    - task: UseGitVersion@5
+    # - task: UseGitVersion@5
+    #   inputs:
+    #     versionSpec: '5.x.x'
+
+    - task: gitversion-setup@4
       inputs:
-        versionSpec: '5.x.x'
+        versionSpec: '6.4.x'
+  
+    - task: gitversion-execute@4
 
     # Set container version. 
     - script: |
