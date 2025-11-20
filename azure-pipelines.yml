@@ -18,13 +18,11 @@ stages:
     - checkout: self
       fetchDepth: 0
 
-    - task: gittools.gitversion.setup@0
-      displayName: Install GitVersion
+    - task: gitversion-setup@4
       inputs:
-        versionSpec: '5.x'
-
-    - task: gittools.gitversion.execute@0
-      displayName: Determine Version
+        versionSpec: '6.4.x'
+  
+    - task: gitversion-execute@4
 
     - script: |
         echo "FullSemVer: $(GitVersion.FullSemVer)"
